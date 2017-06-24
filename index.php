@@ -22,7 +22,7 @@
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="patientName">Patient name:</label> 
 				<div class="col-sm-10">  
-					<input type="text" id="patientName" name="patientName" class="content" onblur="searchPatient(this.value)"/><br>
+					<input type="text" id="patientName" name="patientName" class="content" onkeyup="searchPatient(this.value)" onblur="closeSuggestions()"/><br>
 				</div>
 			</div>
 			
@@ -43,12 +43,17 @@
 
 </div>
 
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+
 <script>
 /*
 Does a live search of the database.
 */
 function searchPatient(str) {
-	
+
 	if (str.length==0) {
 		$("#livesearch").empty();
 		$("#livesearch").hide();
@@ -71,7 +76,7 @@ function searchPatient(str) {
 		
 		}
 	};
-	xmlhttp.open("GET","https://localhost/inalaprimarycare/serverscripts/searchPatients.php?q="+str,true);
+	xmlhttp.open("GET","http://localhost/inalaprimarycare/serverscripts/searchPatients.php?q="+str,true);
 	xmlhttp.send();
 };
 
@@ -98,17 +103,20 @@ Sets the patientName field to the text contained in the clickedElement
 */
 function selectResult(clickedElement) {
 
-	alert('text is ' + clickedElement.innerText);
 	$("#patientName").val(clickedElement.innerText);
 
 }
 
-</script>
+/*closes the livesearch results box when the user clicks out of the Company field
+hide the livesearch element (after a delay, to give time for the user to select an item
+from the livesearch box)
+*/
+function closeSuggestions() {
+	
+	setTimeout(function(){$("#livesearch").slideUp();}, 300);
+}
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+</script>
 
 </body>
 </html>

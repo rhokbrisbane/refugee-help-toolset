@@ -1,0 +1,19 @@
+
+http://bendustries.co/wp/setting-up-xampp-to-work-with-mssql/
+
+important bit:
+
+Next, we’ll want to do a little configuration on our PHP installation. Open a text editor and find your php.ini file. If you installed XAMPP to c:\xampp, the path would be C:xampp\php\php.ini (You can also use the ‘Config’ buttons on the XAMPP Control Panel.) Navigate to the [Date] section and correct the timezone. The valid timezone options are found at http://php.net/manual/en/timezones.php. As a shortcut, though, you can likely get away with using America/Los_Angeles, America/Denver, America/Chicago, or America/New_York, assuming you live in the US and your location observes Daylight Saving Time. (I used: date.timezone = Australia/Brisbane)
+Next, find the memory_limit key (Ctrl+F is your friend here) and bump it from 128M to 512M. You can set memory limits per-script, but this will avoid problems in most scripts.
+The last bit is to install the sqlsrv drivers and enable them in PHP. For that, execute the sqlsrv30 package and extract the files. The two you want are named for the version of PHP you are running. In XAMPP 1.8.1, PHP is version 5.4.7, so I’d copy the php_pdo_sqlsrv_54_ts.dll and php_sqlsrv_54_ts.dll files and paste them into C:\xampp\php\ext. The latter file is the standard driver, while the former is the PDO driver. I’ll explain more later on the difference, but to keep things easy, put them both in the \ext directory. 
+Following that, go back into php.ini and navigate to Windows Extensions. At the bottom of the list, add two entries, **** extension=php_pdo_sqlsrv_54_ts.dll and extension=php_sqlsrv_54_ts.dll ****. Now restart Apache (either restart the service in services.msc or stop and start on the Control Panel.)
+Open or refresh the page at 127.0.0.1 (or the sandbox IP) and click the phpinfo() link on the left navigation panel. Ctrl+F and search for ‘sqlsrv’ and you should find the following entries:  blah-blah-blah-blah-bla
+
+I used: php_pdo_sqlsrv_56_ts.dll and extension=php_sqlsrv_56_ts.dll becuase my XAMPP PHP server is version 5.6.30
+
+Microsoft ODBC driver
+https://www.microsoft.com/en-us/download/details.aspx?id=36434
+
+Microsoft PHP SQLSVR data access DLLs
+https://www.microsoft.com/en-us/download/details.aspx?id=20098
+

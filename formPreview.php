@@ -38,9 +38,9 @@ if ($stmtPatient === false)
 	exit(print_r(sqlsrv_errors(),true));
 }
 
-while ($rowPaitent = sqlsrv_fetch_array($stmtPatient,SQLSRV_FETCH_ASSOC))
+while ($rowPatient = sqlsrv_fetch_array($stmtPatient,SQLSRV_FETCH_ASSOC))
 {
-	//echo $row ["FIRSTNAME"]." ".$row["MIDDLENAME"]." ".$row["SURNAME"]."<br/>";
+	echo $rowPatient["FIRSTNAME"]." ".$rowPatient["SURNAME"]."<br/>";
 	
 }
 
@@ -180,13 +180,6 @@ echo "<br> MenACWY: ";
 
 print_r($MenACWYVaccineID);
 
-
-
-
-
-
-
-
 ?>
 
 
@@ -238,7 +231,8 @@ print_r($MenACWYVaccineID);
 </div>
 
 <!--patient info section-->
-<div class="container">
+<?php
+	echo('<div class="container">
   <div class="table" id="patientInfo">
     <h2>Patient Details</h2>
     <div class=".col-md-6">
@@ -258,8 +252,9 @@ print_r($MenACWYVaccineID);
         <input id="PtSex"></input>
     </div>
   </div>
-</div>
-
+</div')
+?>
+	
 
 <!--Dosage section-->
 <div class="container">

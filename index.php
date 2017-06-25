@@ -35,7 +35,7 @@
 
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
-					<button type="submit" class="btn btn-default">Preview</button>
+					<button type="button" class="btn btn-default" onclick="goToSchedule()">Preview</button>
 				</div>
 			</div>
 		</form>
@@ -114,6 +114,19 @@ from the livesearch box)
 function closeSuggestions() {
 
 	setTimeout(function(){$("#livesearch").slideUp();}, 300);
+}
+	
+/*
+Launches the schedule preview page
+*/
+function goToSchedule() {
+	
+	var patientString = $("#patientName").val();
+	var idIndexStart = patientString.indexOf("#");
+	var idIndexEnd = patientString.indexOf(")");
+	var patientID = patientString.substr(idIndexStart+1, (idIndexEnd - idIndexStart - 1));
+	window.location.replace("formPreview.php?q="+patientID);
+	
 }
 
 </script>

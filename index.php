@@ -74,12 +74,13 @@ function searchPatient(str) {
 
 			//Convert response text to list and pass to
 			//"displaySearch" method
+			
 			var list = JSON.parse(this.responseText);
 			displaySearch(list);
 		
 		}
 	};
-	xmlhttp.open("GET","http://localhost/inalaprimarycare/searchPatients.php?q="+str,true);
+	xmlhttp.open("GET","searchPatients.php?q="+str,true);
 	xmlhttp.send();
 };
 

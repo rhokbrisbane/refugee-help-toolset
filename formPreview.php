@@ -17,8 +17,9 @@
     </script>
 </head>
 <?php
-
 require_once ('dbaccess.php');
+
+$pID = $_POST["patientID"];
 
 //query to get all patients data
 $sqlPatient = "SELECT PATIENTS.SURNAME, 
@@ -28,7 +29,7 @@ PATIENTS.DOB,
 PATIENTS.SEXCODE, 
 PATIENTS.RECORDNO 
 FROM BPSPatients.dbo.PATIENTS 
-WHERE PATIENTS.INTERNALID =" . $_POST["patientID"];
+WHERE PATIENTS.INTERNALID = " . $pID;// . $_POST["patientID"];
 
 $stmtPatient = sqlsrv_query($conn,$sqlPatient);
 
@@ -37,11 +38,10 @@ if ($stmtPatient === false)
 	exit(print_r(sqlsrv_errors(),true));
 }
 
-while ($rowPaitent = sqlsrv_fetch_array($stmtx,SQLSRV_FETCH_ASSOC))
+while ($rowPaitent = sqlsrv_fetch_array($stmtPatient,SQLSRV_FETCH_ASSOC))
 {
 	//echo $row ["FIRSTNAME"]." ".$row["MIDDLENAME"]." ".$row["SURNAME"]."<br/>";
-	echo $row ["Result"]."<br/>";
-
+	
 }
 
 
@@ -57,8 +57,7 @@ $sql = "SELECT
 FROM
   BPSPatients.dbo.IMMUNISATIONS
 WHERE
-  BPSPatients.dbo.IMMUNISATIONS.RECORDSTATUS <> 0 AND BPSPatients.dbo.IMMUNISATIONS.INTERNALID = 10;
-";
+  BPSPatients.dbo.IMMUNISATIONS.RECORDSTATUS <> 0 AND BPSPatients.dbo.IMMUNISATIONS.INTERNALID = " . $pID;
 
 $stmt = sqlsrv_query($conn,$sql);
 

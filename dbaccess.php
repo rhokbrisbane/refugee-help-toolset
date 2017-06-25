@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html>
-<body>
-
 <?php
 $title = "SQL Server DB access";
-echo  $title."<br>";
+
 
 // $serverName = "CHRISTOPHER4B3E\BPSINSTANCE";
 // echo  $serverName."<br/><br/>";
@@ -13,20 +9,20 @@ echo  $title."<br>";
 // echo "Connection String: DATABASE=".$connectionInfo["Database"].";UID=".$connectionInfo["UID"].";PWD=".$connectionInfo["PWD"]."<br/>";
 
 $serverName = "DANIEL-PC\BPSINSTANCE";
-echo  $serverName."<br/><br/>";
+
 
 $connectionInfo = array("Database"=>"BPSSamples","UID"=>"bpsrawdata","PWD"=>"samples");
-echo "Connection String: DATABASE=".$connectionInfo["Database"].";UID=".$connectionInfo["UID"].";PWD=".$connectionInfo["PWD"]."<br/>";
+
 
 $conn = sqlsrv_connect($serverName,$connectionInfo);
 
 if ($conn)
 {
-	echo "Connection established<br><br>";
+//	echo "Connection established<br><br>";
 }
 else
 {
-	echo "Connection could not be established";
+//	echo "Connection could not be established";
 	exit(print_r(sqlsrv_errors(),true));
 }
 
@@ -49,6 +45,3 @@ else
 // }
 
  ?>
-
-</body>
-</html> 

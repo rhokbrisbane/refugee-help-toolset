@@ -17,7 +17,7 @@
     </script>
 </head>
 <?php
-<<<<<<< HEAD
+
 require_once ('dbaccess.php');
 
 // //query to get all patients
@@ -99,7 +99,7 @@ if ($stmtDrug === false)
 {
 	exit(print_r(sqlsrv_errors(),true));
 }
-=======
+
 // require_once ('dbaccess.php');
 //
 // $sql = "SELECT PATIENTS.SURNAME + ' ' + PATIENTS.FIRSTNAME + ' DOB ' + CONVERT(VARCHAR,CAST(PATIENTS.DOB AS DATE)) + ' ID ' + ':' + CONVERT(varchar,PATIENTS.INTERNALID) AS Result FROM PATIENTS ORDER BY dbo.PATIENTS.SURNAME";
@@ -117,7 +117,7 @@ if ($stmtDrug === false)
 // 	echo $row ["Result"]."<br/>";
 //
 // }
->>>>>>> bfa9ffa0cbee1add143cd2b2dfccedfe0e8cf29f
+
 
 while ($rowX = sqlsrv_fetch_array($stmtDrug,SQLSRV_FETCH_ASSOC))
 {

@@ -32,6 +32,14 @@ label{
   text-align: right;
 }
 
+.modal-content{
+  padding: 10px;
+}
+
+.modal-footer{
+  text-align: center;
+}
+
 /*buttons*/
 .btn-upload{
   background: #E1EB8A;
@@ -43,4 +51,9 @@ label{
   background: #006683;
   margin: 10px;
   color: white;
+}
+
+.modal-footer button{
+  padding:5px 20px 5px 20px;
+  text-align: center;
 }

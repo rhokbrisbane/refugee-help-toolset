@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Refimm</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/stylesheet.css" rel="stylesheet">
+    <link href="css/custom-styles.css" rel="stylesheet">
 </head>
 <body>
 
@@ -20,21 +20,21 @@
 
 			<!-- search field -->
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="patientName">Patient name:</label> 
-				<div class="col-sm-10">  
+				<label class="control-label col-sm-2" for="patientName">Patient name:</label>
+				<div class="col-sm-10">
 					<input type="text" id="patientName" name="patientName" class="content" onkeyup="searchPatient(this.value)" onblur="closeSuggestions()"/><br>
 				</div>
 			</div>
-			
+
 			<!-- search results -->
 			<div>
 				<ul class="list-group" id="livesearch">
 					<!--Displays suggestions according to the user typing -->
 				</ul>
 			</div>
-			
+
 			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10">  
+				<div class="col-sm-offset-2 col-sm-10">
 					<button type="submit" class="btn btn-default">Preview</button>
 				</div>
 			</div>
@@ -68,12 +68,12 @@ function searchPatient(str) {
 	}
 	xmlhttp.onreadystatechange=function() {
 		if (this.readyState==4 && this.status==200) {
-		
+
 			//Convert response text to list and pass to
 			//"displaySearch" method
 			var list = JSON.parse(this.responseText);
 			displaySearch(list);
-		
+
 		}
 	};
 	xmlhttp.open("GET","http://localhost/inalaprimarycare/serverscripts/searchPatients.php?q="+str,true);
@@ -87,14 +87,14 @@ function displaySearch(list) {
 
 	$("#livesearch").empty();
 	$("#livesearch").show();
-	
+
 	for (i=0; i<list.length; i++) {
-	
+
 		var result = list[i];
-		var listItem = "<li class='list-group-item' onclick='selectResult(this)'>" + 
+		var listItem = "<li class='list-group-item' onclick='selectResult(this)'>" +
 			result + "</li>";
 		$("#livesearch").append(listItem);
-	
+
 	}
 }
 
@@ -112,7 +112,7 @@ hide the livesearch element (after a delay, to give time for the user to select 
 from the livesearch box)
 */
 function closeSuggestions() {
-	
+
 	setTimeout(function(){$("#livesearch").slideUp();}, 300);
 }
 

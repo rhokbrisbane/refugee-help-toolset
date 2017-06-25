@@ -20,22 +20,29 @@
 
 require_once ('dbaccess.php');
 
-// //query to get all patients
-// $sqlx = "SELECT PATIENTS.SURNAME + ' ' + PATIENTS.FIRSTNAME + ' DOB ' + CONVERT(VARCHAR,CAST(PATIENTS.DOB AS DATE)) + ' ID ' + ':' + CONVERT(varchar,PATIENTS.INTERNALID) AS Result FROM PATIENTS ORDER BY dbo.PATIENTS.SURNAME";
+//query to get all patients data
+$sqlPatient = "SELECT PATIENTS.SURNAME, 
+PATIENTS.FIRSTNAME, 
+PATIENTS.ADDRESS1, 
+PATIENTS.DOB, 
+PATIENTS.SEXCODE, 
+PATIENTS.RECORDNO 
+FROM BPSPatients.dbo.PATIENTS 
+WHERE PATIENTS.INTERNALID =" . $_POST["patientID"];
 
-// $stmtx = sqlsrv_query($conn,$sqlx);
+$stmtPatient = sqlsrv_query($conn,$sqlPatient);
 
-// if ($stmtx === false)
-// {
-// 	exit(print_r(sqlsrv_errors(),true));
-// }
+if ($stmtPatient === false)
+{
+	exit(print_r(sqlsrv_errors(),true));
+}
 
-// while ($row = sqlsrv_fetch_array($stmtx,SQLSRV_FETCH_ASSOC))
-// {
-// 	//echo $row ["FIRSTNAME"]." ".$row["MIDDLENAME"]." ".$row["SURNAME"]."<br/>";
-// 	echo $row ["Result"]."<br/>";
+while ($rowPaitent = sqlsrv_fetch_array($stmtx,SQLSRV_FETCH_ASSOC))
+{
+	//echo $row ["FIRSTNAME"]." ".$row["MIDDLENAME"]." ".$row["SURNAME"]."<br/>";
+	echo $row ["Result"]."<br/>";
 
-// }
+}
 
 
 //query to get all of a patients
@@ -394,7 +401,7 @@ print_r($MenACWYVaccineID);
   	</tr>
   	<!--table notes row 1-->
   	<tr>
-  		<td colspan="6" id="notes1">#  HPV can be ordered from QHIP for males and females, if year 8 school dose has been missed.  * At least 1 dose Varicella if child aged <14 years however if child is ≥14 years at first dose, give second dose, 4 weeks after 1st dose  -    as per Australian Standard Vaccination Schedule- 10th Edition</td>
+  		<td colspan="6" id="notes1">#  HPV can be ordered from QHIP for males and females, if year 8 school dose has been missed.  * At least 1 dose Varicella if child aged < 14 years however if child is ≥ 14 years at first dose, give second dose, 4 weeks after 1st dose  -    as per Australian Standard Vaccination Schedule- 10th Edition</td>
   	</tr>
   	<tr>
   		<td colspan="6" id="notes2">Record on VIVAS as Refugee Catch-up</td>

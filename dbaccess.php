@@ -32,21 +32,21 @@ else
 
 //$sql = "select * from PATIENTS";
 
-$sql = "SELECT PATIENTS.SURNAME + ' ' + PATIENTS.FIRSTNAME + ' DOB ' + CONVERT(VARCHAR,CAST(PATIENTS.DOB AS DATE)) + ' ID ' + ':' + CONVERT(varchar,PATIENTS.INTERNALID) AS Result FROM PATIENTS ORDER BY dbo.PATIENTS.SURNAME";
+// $sql = "SELECT PATIENTS.SURNAME + ' ' + PATIENTS.FIRSTNAME + ' DOB ' + CONVERT(VARCHAR,CAST(PATIENTS.DOB AS DATE)) + ' ID ' + ':' + CONVERT(varchar,PATIENTS.INTERNALID) AS Result FROM PATIENTS ORDER BY dbo.PATIENTS.SURNAME";
 
-$stmt = sqlsrv_query($conn,$sql);
+// $stmt = sqlsrv_query($conn,$sql);
 
-if ($stmt === false)
-{
-	exit(print_r(sqlsrv_errors(),true));
-}
+// if ($stmt === false)
+// {
+// 	exit(print_r(sqlsrv_errors(),true));
+// }
 
-while ($row = sqlsrv_fetch_array($stmt,SQLSRV_FETCH_ASSOC))
-{
-	//echo $row ["FIRSTNAME"]." ".$row["MIDDLENAME"]." ".$row["SURNAME"]."<br/>";
-	echo $row ["Result"]."<br/>";
+// while ($row = sqlsrv_fetch_array($stmt,SQLSRV_FETCH_ASSOC))
+// {
+// 	//echo $row ["FIRSTNAME"]." ".$row["MIDDLENAME"]." ".$row["SURNAME"]."<br/>";
+// 	echo $row ["Result"]."<br/>";
 
-}
+// }
 
  ?>
 

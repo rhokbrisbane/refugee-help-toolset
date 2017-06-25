@@ -79,7 +79,7 @@ function searchPatient(str) {
 		
 		}
 	};
-	xmlhttp.open("GET","http://localhost/inalaprimarycare/searchPatients.php?q="+str,true);
+	xmlhttp.open("GET","searchPatients.php?q="+str,true);
 	xmlhttp.send();
 };
 

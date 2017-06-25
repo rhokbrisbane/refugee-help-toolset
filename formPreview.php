@@ -7,6 +7,12 @@
     <title>Immunisation Schedule Preview</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/stylesheet.css" rel="stylesheet">
+    <!-- print function -->
+    <script>
+      function printForm() {
+          window.print();
+      }
+    </script>
 </head>
 <?php
 // require_once ('dbaccess.php');
@@ -35,8 +41,8 @@
 <!-- action buttons -->
 <div class="container">
   <div class="table" id="tools">
-    <a class="btn btn-upload" href="#" role="button">Upload to Best Practice</a>
-    <a class="btn btn-print" href="#" role="button">Print</a>
+    <button type="button" class="btn btn-upload">Upload to Best Practice</button>
+    <button onclick="printForm()" type="button" class="btn btn-print">Print</button>
   </div>
 </div>
 

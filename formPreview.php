@@ -40,14 +40,6 @@
 
 <body>
 
-<!-- action buttons -->
-<div class="container">
-  <div class="table" id="tools">
-    <button type="button" class="btn btn-upload" data-toggle="modal" data-target="#myModal">Upload to Best Practice</button>
-    <button onclick="printForm()" type="button" class="btn btn-print">Print</button>
-  </div>
-</div>
-
 <!-- pop-up confirm modal -->
 <!-- Example from w3schools.com -->
 <div id="myModal" class="modal fade" role="dialog">
@@ -57,6 +49,9 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
+        <div id="pop-up-iframe">
+          <iframe src="formPreview.php"></iframe>
+        </div>
         <h3>Are you sure you want to upload this form to Best Practice?</h3>
       </div>
       <div class="modal-footer">
@@ -69,11 +64,18 @@
 
 <!--header for form -->
 <div class="container">
+  <div class="row">
+    <!-- action buttons -->
+    <button type="button" class="btn btn-upload" data-toggle="modal" data-target="#myModal">Upload to Best Practice</button>
+    <button onclick="printForm()" type="button" class="btn btn-print">Print</button>
+  </div>
   <div class="table" id="header">
-    <img src="assets/logos/IPC.png" class="img-fluid" alt="Inala Primary Care Logo">
-  	<p id="companyName">Inala Primary Care</p>
-  	<p id="companyAddress">64 Wirraway Pde INALA 4064</p>
-  	<p id="companyPhone">07 3275 5444</p>
+    <div class="row">
+      <img src="assets/logos/IPC.png" class="img-fluid" alt="Inala Primary Care Logo">
+    	<p id="companyName">Inala Primary Care</p>
+    	<p id="companyAddress">64 Wirraway Pde INALA 4064</p>
+    	<p id="companyPhone">07 3275 5444</p>
+    </div>
   </div>
 </div>
 
@@ -256,6 +258,7 @@
   </table>
 </container>
 
+<!-- additional notes -->
 <div class="container">
   <table class="table" id="additional-notes">
     <h2>Additional Notes</h2>
@@ -265,6 +268,14 @@
       </div>
     </form>
   </table
+</div>
+
+<!-- action buttons -->
+<div class="container">
+  <div class="table" id="tools">
+    <button type="button" class="btn btn-upload" data-toggle="modal" data-target="#myModal">Upload to Best Practice</button>
+    <button onclick="printForm()" type="button" class="btn btn-print">Print</button>
+  </div>
 </div>
 
 </body>

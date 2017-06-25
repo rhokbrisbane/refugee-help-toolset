@@ -40,6 +40,10 @@ label{
   text-align: center;
 }
 
+#pop-up-iframe iframe{
+  width: 100%;
+}
+
 /*buttons*/
 .btn-upload{
   background: #E1EB8A;
@@ -69,5 +73,5 @@ input{
 
 /*images*/
 #header img{
-  max-width: 150px;
+  width: 120px;
 }

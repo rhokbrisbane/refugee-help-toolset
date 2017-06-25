@@ -7,8 +7,17 @@
     <title>Immunisation Schedule Preview</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/stylesheet.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- print function -->
+    <script>
+      function printForm() {
+          window.print();
+      }
+    </script>
 </head>
 <?php
+<<<<<<< HEAD
 require_once ('dbaccess.php');
 
 // //query to get all patients
@@ -90,6 +99,25 @@ if ($stmtDrug === false)
 {
 	exit(print_r(sqlsrv_errors(),true));
 }
+=======
+// require_once ('dbaccess.php');
+//
+// $sql = "SELECT PATIENTS.SURNAME + ' ' + PATIENTS.FIRSTNAME + ' DOB ' + CONVERT(VARCHAR,CAST(PATIENTS.DOB AS DATE)) + ' ID ' + ':' + CONVERT(varchar,PATIENTS.INTERNALID) AS Result FROM PATIENTS ORDER BY dbo.PATIENTS.SURNAME";
+//
+// $stmt = sqlsrv_query($conn,$sql);
+//
+// if ($stmt === false)
+// {
+// 	exit(print_r(sqlsrv_errors(),true));
+// }
+//
+// while ($row = sqlsrv_fetch_array($stmt,SQLSRV_FETCH_ASSOC))
+// {
+// 	//echo $row ["FIRSTNAME"]." ".$row["MIDDLENAME"]." ".$row["SURNAME"]."<br/>";
+// 	echo $row ["Result"]."<br/>";
+//
+// }
+>>>>>>> bfa9ffa0cbee1add143cd2b2dfccedfe0e8cf29f
 
 while ($rowX = sqlsrv_fetch_array($stmtDrug,SQLSRV_FETCH_ASSOC))
 {
@@ -158,181 +186,232 @@ print_r($MenACWYVaccineID);
 
 <body>
 
+<!-- action buttons -->
+<div class="container">
+  <div class="table" id="tools">
+    <button type="button" class="btn btn-upload" data-toggle="modal" data-target="#myModal">Upload to Best Practice</button>
+    <button onclick="printForm()" type="button" class="btn btn-print">Print</button>
+  </div>
+</div>
+
+<!-- pop-up confirm modal -->
+<!-- Example from w3schools.com -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h3>Are you sure you want to upload this form to Best Practice?</h3>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Yes</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!--header for form -->
-<div id="header">
-	<p id="companyName">Inala Primary Care</p>
-	<p id="companyAddress">64 Wirraway Pde INALA 4064</p>
-	<p id="companyPhone">07 3275 5444</p>
+<div class="container">
+  <div class="table" id="header">
+    <img src="assets/logos/IPC.png" class="img-fluid" alt="Inala Primary Care Logo">
+  	<p id="companyName">Inala Primary Care</p>
+  	<p id="companyAddress">64 Wirraway Pde INALA 4064</p>
+  	<p id="companyPhone">07 3275 5444</p>
+  </div>
 </div>
 
 <!--page heading for form-->
-<div id="headingBox">
-	<p id="formTitle">REFUGEE IMMUNISATION CATCH-UP ADVISORY SCHEDULE – </p>
-	<p id="ageGroup">10 - 19 YEARS</p>
+<div class="container">
+  <div class="table" id="headingBox">
+  	<h2 id="formTitle">Refugee Immunisation Catch-up Advisory Schedule</h2>
+  	<h3 id="ageGroup">10 - 19 Years</h3>
+  </div>
 </div>
 
 <!--patient info section-->
-<div id="patientInfo">
-	<label>NAME:</label>
-	<input id="PtFullName"></input>
-	
-	<label>AGE:</label>
-	<input id="PtAge"></input>
-	
-	<label>ADDRESS:</label>
-	<input id="PtAddress"></input>
-	
-	<label>DOB:</label>
-	<input id="PtDoB"></input>
-	
-	<label>PATIENT RECORD NO:</label>
-	<input id="PtRecordNo"></input>
-
-	<label>SEX:</label>
-	<input id="PtSex"></input>
+<div class="container">
+  <div class="table" id="patientInfo">
+    <h2>Patient Details</h2>
+    <div class=".col-md-6">
+        <label>Name:</label>
+        <input id="PtFullName"></input>
+        <label>Age:</label>
+        <input id="PtAge"></input>
+        <label>Address:</label>
+        <input id="PtAddress"></input>
+    </div>
+    <div class=".col-md-6">
+        <label>DOB:</label>
+        <input id="PtDoB"></input>
+        <label>Patient Record No.:</label>
+        <input id="PtRecordNo"></input>
+        <label>Sex:</label>
+        <input id="PtSex"></input>
+    </div>
+  </div>
 </div>
 
-<br>
 
 <!--Dosage section-->
-<table id="dosageTable" class="table">
-	<tr>
-		<th>Dose</th>
-		<th>1</th>
-		<th>2</th>
-		<th>3</th>
-		<th>COMMENTS</th>
-	</tr>
-	<tr>
-		<td>Antigen</td>
-		<td colspan="5">For recording previously given vaccinations enter date given and leave blank for ones still required</td>
-	</tr>
-	<tr>
-		<td>Hep B</td>
-		<td><input id="hepBdate1" type="date"></input></td>
-		<td><input id="hepBdate2" type="date"></input></td>
-		<td><input id="hepBdate3" type="date"></input></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>ADT/dTpa</td>
-		<td><input id="ADTdate1" type="date"></input></td>
-		<td><input id="ADTdate2" type="date"></input></td>
-		<td><input id="ADTdate3" type="date"></input></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>IPV</td>
-		<td><input id="IPVdate1" type="date"></input></td>
-		<td><input id="IPVdate2" type="date"></input></td>
-		<td><input id="IPVdate3" type="date"></input></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>MMR</td>
-		<td><input id="MMRdate1" type="date"></input></td>
-		<td><input id="MMRdate2" type="date"></input></td>
-		<td><input id="MMRdate3" type="date"></input></td>
-		<td>Refer to TB clinicafter 2nd MMR</td>
-	</tr>
-	<tr>
-		<td>VZV*</td>
-		<td><input id="VZVdate1" type="date"></input></td>
-		<td><input id="VZVdate2" type="date"></input></td>
-		<td><input id="VZVdate3" type="date"></input></td>
-		<td>School based vaccination program only</td>
-	</tr>
-	<tr>
-		<td>HPV#</td>
-		<td><input id="HPVdate1" type="date"></input></td>
-		<td><input id="HPVdate2" type="date"></input></td>
-		<td><input id="HPVdate3" type="date"></input></td>
-		<td>School based vaccination program only</td>
-	</tr>
-	<tr>
-		<td>BCG</td>
-		<td><input id="BCGdate1" type="date"></input></td>
-		<td><input id="BCGdate2" type="date"></input></td>
-		<td><input id="BCGdate3" type="date"></input></td>
-		<td>Refer to Metro South Clinical TB Service</td>
-	</tr>
-	<tr>
-		<td>MenACWY</td>
-		<td><input id="MenACWYdate1" type="date"></input></td>
-		<td><input id="MenACWYdate2" type="date"></input></td>
-		<td><input id="MenACWYdate3" type="date"></input></td>
-		<td>School based vaccination (Yr10) OR catch up for 15-19 year olds with GP</td>
-	</tr>
-</table>
+<div class="container">
+  <div class="table">
+    <table class="table" id="dosageTable">
+      <h2>Dosage Record</h2>
+      <tr>
+        <th>Dose</th>
+        <th>1</th>
+        <th>2</th>
+        <th>3</th>
+        <th>COMMENTS</th>
+      </tr>
+      <tr>
+        <td>Antigen</td>
+        <td colspan="5">For recording previously given vaccinations enter date given and leave blank for ones still required</td>
+      </tr>
+      <tr>
+        <td>Hep B</td>
+        <td><input id="hepBdate1" type="date"></input></td>
+        <td><input id="hepBdate2" type="date"></input></td>
+        <td><input id="hepBdate3" type="date"></input></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>ADT/dTpa</td>
+        <td><input id="ADTdate1" type="date"></input></td>
+        <td><input id="ADTdate2" type="date"></input></td>
+        <td><input id="ADTdate3" type="date"></input></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>IPV</td>
+        <td><input id="IPVdate1" type="date"></input></td>
+        <td><input id="IPVdate2" type="date"></input></td>
+        <td><input id="IPVdate3" type="date"></input></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>MMR</td>
+        <td><input id="MMRdate1" type="date"></input></td>
+        <td><input id="MMRdate2" type="date"></input></td>
+        <td><input id="MMRdate3" type="date"></input></td>
+        <td>Refer to TB clinicafter 2nd MMR</td>
+      </tr>
+      <tr>
+        <td>VZV*</td>
+        <td><input id="VZVdate1" type="date"></input></td>
+        <td><input id="VZVdate2" type="date"></input></td>
+        <td><input id="VZVdate3" type="date"></input></td>
+        <td>School based vaccination program only</td>
+      </tr>
+      <tr>
+        <td>HPV#</td>
+        <td><input id="HPVdate1" type="date"></input></td>
+        <td><input id="HPVdate2" type="date"></input></td>
+        <td><input id="HPVdate3" type="date"></input></td>
+        <td>School based vaccination program only</td>
+      </tr>
+      <tr>
+        <td>BCG</td>
+        <td><input id="BCGdate1" type="date"></input></td>
+        <td><input id="BCGdate2" type="date"></input></td>
+        <td><input id="BCGdate3" type="date"></input></td>
+        <td>Refer to Metro South Clinical TB Service</td>
+      </tr>
+      <tr>
+        <td>MenACWY</td>
+        <td><input id="MenACWYdate1" type="date"></input></td>
+        <td><input id="MenACWYdate2" type="date"></input></td>
+        <td><input id="MenACWYdate3" type="date"></input></td>
+        <td>School based vaccination (Yr10) OR catch up for 15-19 year olds with GP</td>
+      </tr>
+    </table>
+  </div>
+</div>
 
-<br>
 
 <!--timeline table-->
-<table id="timelineTable" class="table">
-	<tr>
-		<th>Time Due</th>
-		<th>Date</th>
-		<th>Vaccinations Needed</th>
-		<th>Batch</th>
-		<th>Site</th>
-		<th>Vaccinator</th>
-	</tr>
-	<!--Now row-->
-	<tr>
-		<td>Now</td>
-		<td><input id="timelineDate1" type="date"></input></td>
-		<td>
-			<ul>
-				<li>Paediatric Hep B</li>
-				<li>Boostrix</li>
-				<li>IPV</li>
-				<li>MMRV</li>
-			</ul>
-		</td>
-		<td><input id="batch1" type="text"></input></td>
-		<td><input id="site1" type="text"></input></td>
-		<td>Checked:</td>
-	</tr>
-	<!--4 month row-->
-	<tr>
-		<td>1 month from last</td>
-		<td><input id="timelineDate2" type="date"></input></td>
-		<td>
-			<ul>
-				<li>Paediatric Hep B</li>
-				<li>ADT</li>
-				<li>IPV</li>
-				<li>MMR</li>
-			</ul>
-		</td>
-		<td><input id="batch2" type="text"></input></td>
-		<td><input id="site2" type="text"></input></td>
-		<td>Checked:</td>
-	</tr>
-	<!--6 months row-->
-	<tr>
-		<td>3 months from last</td>
-		<td><input id="timelineDate3" type="date"></input></td>
-		<td>
-			<ul>
-				<li>Paediatric Hep B</li>
-				<li>ADT</li>
-				<li>IPV</li>
-				<li>MenC</li>
-			</ul>
-		</td>
-		<td><input id="batch3" type="text"></input></td>
-		<td><input id="site3" type="text"></input></td>
-		<td>Checked:</td>
-	</tr>
-	<!--table notes row 1-->
-	<tr>
-		<td colspan="6" id="notes1">#  HPV can be ordered from QHIP for males and females, if year 8 school dose has been missed.  * At least 1 dose Varicella if child aged <14 years however if child is ≥14 years at first dose, give second dose, 4 weeks after 1st dose  -    as per Australian Standard Vaccination Schedule- 10th Edition</td>
-	</tr>
-	<tr>
-		<td colspan="6" id="notes2">Record on VIVAS as Refugee Catch-up</td>
-	</tr>
-</table>
+<div class="container">
+  <table class="table" id="timelineTable">
+    <h2>Vaccination Schedule</h2>
+  	<tr>
+  		<th>Time Due</th>
+  		<th>Date</th>
+  		<th>Vaccinations Needed</th>
+  		<th>Batch</th>
+  		<th>Site</th>
+  		<th>Vaccinator</th>
+  	</tr>
+  	<!--Now row-->
+  	<tr>
+  		<td>Now</td>
+  		<td><input id="timelineDate1" type="date"></input></td>
+  		<td>
+  			<ul>
+  				<li>Paediatric Hep B</li>
+  				<li>Boostrix</li>
+  				<li>IPV</li>
+  				<li>MMRV</li>
+  			</ul>
+  		</td>
+  		<td><input id="batch1" type="text"></input></td>
+  		<td><input id="site1" type="text"></input></td>
+  		<td>Checked:</td>
+  	</tr>
+  	<!--4 month row-->
+  	<tr>
+  		<td>1 month from last</td>
+  		<td><input id="timelineDate2" type="date"></input></td>
+  		<td>
+  			<ul>
+  				<li>Paediatric Hep B</li>
+  				<li>ADT</li>
+  				<li>IPV</li>
+  				<li>MMR</li>
+  			</ul>
+  		</td>
+  		<td><input id="batch2" type="text"></input></td>
+  		<td><input id="site2" type="text"></input></td>
+  		<td>Checked:</td>
+  	</tr>
+  	<!--6 months row-->
+  	<tr>
+  		<td>3 months from last</td>
+  		<td><input id="timelineDate3" type="date"></input></td>
+  		<td>
+  			<ul>
+  				<li>Paediatric Hep B</li>
+  				<li>ADT</li>
+  				<li>IPV</li>
+  				<li>MenC</li>
+  			</ul>
+  		</td>
+  		<td><input id="batch3" type="text"></input></td>
+  		<td><input id="site3" type="text"></input></td>
+  		<td>Checked:</td>
+  	</tr>
+  	<!--table notes row 1-->
+  	<tr>
+  		<td colspan="6" id="notes1">#  HPV can be ordered from QHIP for males and females, if year 8 school dose has been missed.  * At least 1 dose Varicella if child aged <14 years however if child is ≥14 years at first dose, give second dose, 4 weeks after 1st dose  -    as per Australian Standard Vaccination Schedule- 10th Edition</td>
+  	</tr>
+  	<tr>
+  		<td colspan="6" id="notes2">Record on VIVAS as Refugee Catch-up</td>
+  	</tr>
+  </table>
+</container>
+
+<div class="container">
+  <table class="table" id="additional-notes">
+    <h2>Additional Notes</h2>
+    <form>
+      <div class="form-group">
+        <textarea class="form-control" rows="5" id="comment"></textarea>
+      </div>
+    </form>
+  </table
+</div>
 
 </body>
 </html>

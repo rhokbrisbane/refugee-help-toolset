@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900');
+
+/*custom css*/
+
+body, html{
+  font-family: 'Lato', sans-serif;
+}
+
+h1{
+  font-size: 30px;
+  color: #424242;
+}
+
+h2{
+  font-size: 22px;
+  color: #424242;
+}
+
+h3{
+  font-size: 18px;
+  color: #424242;
+}
+
+label{
+  font-size: 14px;
+  color: #808080;
+  font-weight: 400;
+}
+
+/*layout*/
+#header{
+  text-align: right;
+}
+
+.modal-content{
+  padding: 10px;
+}
+
+.modal-footer{
+  text-align: center;
+}
+
+/*buttons*/
+.btn-upload{
+  background: #E1EB8A;
+  margin: 10px;
+  color: #424242;
+}
+
+.btn-print{
+  background: #006683;
+  margin: 10px;
+  color: white;
+}
+
+.modal-footer button{
+  padding:5px 20px 5px 20px;
+  text-align: center;
+}
+
+/*input fields*/
+input{
+  background: #f5f5f5;
+  border: 1px solid #dadada;
+  border-radius: 2px;
+  padding: 5px;
+  margin: 5px;
+}
+
+/*images*/
+#header img{
+  max-width: 150px;
+}

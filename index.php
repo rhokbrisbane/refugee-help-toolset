@@ -12,32 +12,31 @@
 
 <div class="main">
 	<div class="container">
-		<div class="Jumbotron">
-          <h1>Create immunisation schedule</h1>
-          <h2>Enter patient name:</h2>
-        </div>
+    <img src="assets/logos/IPC.png" class="img-fluid" alt="Inala Primary Care Logo">
+    <h1>Immunisation Schedules</h1>
 		<form class="form-horizontal" method="POST" action="formPreview.php">
 
 			<!-- search field -->
-			<div class="form-group">
-				<label class="control-label col-sm-2" for="patientName">Patient name:</label> 
-				<div class="col-sm-10">  
-					<input type="text" id="patientName" name="patientName" class="content" onkeyup="searchPatient(this.value)" onblur="closeSuggestions()"/><br>
-				</div>
-			</div>
-			
+      <div class="container">
+  			<div class="form-group">
+          <h2>Search for schedule by patient name</h2>
+  				<label class="control-label col-sm-2" for="patientName">Patient name:</label>
+  				<input type="text" id="patientName" name="patientName" class="content" onkeyup="searchPatient(this.value)" onblur="closeSuggestions()"/><br>
+  			</div>
+      </div>
+
 			<!-- search results -->
 			<div>
 				<ul class="list-group" id="livesearch">
 					<!--Displays suggestions according to the user typing -->
 				</ul>
 			</div>
-			
+
 			<input id="patientID" name="patientID" hidden="true"></input>
-			
+
 			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10">  
-					<button type="submit" class="btn btn-default" id="submitButton">Preview</button>
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-standard" id="submitButton">Preview</button>
 				</div>
 			</div>
 		</form>
@@ -74,10 +73,10 @@ function searchPatient(str) {
 
 			//Convert response text to list and pass to
 			//"displaySearch" method
-			
+
 			var list = JSON.parse(this.responseText);
 			displaySearch(list);
-		
+
 		}
 	};
 	xmlhttp.open("GET","searchPatients.php?q="+str,true);
@@ -91,14 +90,14 @@ function displaySearch(list) {
 
 	$("#livesearch").empty();
 	$("#livesearch").show();
-	
+
 	for (i=0; i<list.length; i++) {
-	
+
 		var result = list[i];
-		var listItem = "<li class='list-group-item' onclick='selectResult(this)'>" + 
+		var listItem = "<li class='list-group-item' onclick='selectResult(this)'>" +
 			result + "</li>";
 		$("#livesearch").append(listItem);
-	
+
 	}
 }
 
@@ -123,7 +122,7 @@ hide the livesearch element (after a delay, to give time for the user to select 
 from the livesearch box).
 */
 function closeSuggestions() {
-	
+
 	setTimeout(function(){$("#livesearch").slideUp();}, 300);
 }
 

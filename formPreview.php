@@ -17,6 +17,95 @@
     </script>
 </head>
 <?php
+require_once ('dbaccess.php');
+
+$pID = $_POST["patientID"];
+
+//query to get all patients data
+$sqlPatient = "SELECT PATIENTS.SURNAME, 
+PATIENTS.FIRSTNAME, 
+PATIENTS.ADDRESS1, 
+PATIENTS.DOB, 
+PATIENTS.SEXCODE, 
+PATIENTS.RECORDNO 
+FROM BPSPatients.dbo.PATIENTS 
+WHERE PATIENTS.INTERNALID = " . $pID;// . $_POST["patientID"];
+
+$stmtPatient = sqlsrv_query($conn,$sqlPatient);
+
+if ($stmtPatient === false)
+{
+	exit(print_r(sqlsrv_errors(),true));
+}
+
+while ($rowPatient = sqlsrv_fetch_array($stmtPatient,SQLSRV_FETCH_ASSOC))
+{
+	echo $rowPatient["FIRSTNAME"]." ".$rowPatient["SURNAME"]."<br/>";
+	
+}
+
+
+//query to get all of a patients
+// $sql = "SELECT * FROM BPSPatients.dbo.IMMUNISATIONS";
+
+$sql = "SELECT
+  BPSPatients.dbo.IMMUNISATIONS.INTERNALID,
+  BPSPatients.dbo.IMMUNISATIONS.RECORDID,
+  BPSPatients.dbo.IMMUNISATIONS.RECORDSTATUS,
+  BPSPatients.dbo.IMMUNISATIONS.VACCINEID,
+  BPSPatients.dbo.IMMUNISATIONS.GIVENDATE
+FROM
+  BPSPatients.dbo.IMMUNISATIONS
+WHERE
+  BPSPatients.dbo.IMMUNISATIONS.RECORDSTATUS <> 0 AND BPSPatients.dbo.IMMUNISATIONS.INTERNALID = " . $pID;
+
+$stmt = sqlsrv_query($conn,$sql);
+
+if ($stmt === false)
+{
+	exit(print_r(sqlsrv_errors(),true));
+}
+
+while ($row = sqlsrv_fetch_array($stmt,SQLSRV_FETCH_ASSOC))
+{
+	//echo $row ["FIRSTNAME"]." ".$row["MIDDLENAME"]." ".$row["SURNAME"]."<br/>";
+	echo ("internalID: " . $row ["INTERNALID"] .  //int
+	", RecordID: " . $row["RECORDID"] .    //int
+	", RecordStatus: " . $row["RECORDSTATUS"] .   //int
+	", VaccineID: " . $row["VACCINEID"] .   //int  
+	", Given Date: " . $row["GIVENDATE"]->format('d/m/Y') . "<br/>"); //string
+}
+
+
+
+$drug = "SELECT
+  BPSDrugs.dbo.VACCINES.VACCINEID,
+  BPSDrugs.dbo.VACCINES.VACCINENAME,
+  BPSDrugs.dbo.VAXDISEASES.DISEASENAME
+FROM
+  BPSDrugs.dbo.VACCINES
+  INNER JOIN BPSDrugs.dbo.VACCINE_DISEASE ON BPSDrugs.dbo.VACCINE_DISEASE.VACCINEID = BPSDrugs.dbo.VACCINES.VACCINEID
+  INNER JOIN BPSDrugs.dbo.VAXDISEASES ON BPSDrugs.dbo.VACCINE_DISEASE.DISEASECODE = BPSDrugs.dbo.VAXDISEASES.DISEASECODE
+ORDER BY
+  VAXDISEASES.DISEASENAME
+";
+
+$stmtDrug = sqlsrv_query($conn,$drug);
+
+$HepBVaccineID = array();
+$ADTdToaVaccineID = array();
+$IPVVaccineID = array();
+$MMRVaccineID = array();
+$VZVVaccineID = array();
+$HPVVaccineID = array();
+$BCGVaccineID = array();
+$MenACWYVaccineID = array();
+
+if ($stmtDrug === false)
+{
+	exit(print_r(sqlsrv_errors(),true));
+}
+
 // require_once ('dbaccess.php');
 //
 // $sql = "SELECT PATIENTS.SURNAME + ' ' + PATIENTS.FIRSTNAME + ' DOB ' + CONVERT(VARCHAR,CAST(PATIENTS.DOB AS DATE)) + ' ID ' + ':' + CONVERT(varchar,PATIENTS.INTERNALID) AS Result FROM PATIENTS ORDER BY dbo.PATIENTS.SURNAME";
@@ -34,6 +123,62 @@
 // 	echo $row ["Result"]."<br/>";
 //
 // }
+
+
+while ($rowX = sqlsrv_fetch_array($stmtDrug,SQLSRV_FETCH_ASSOC))
+{
+	// echo ("Vaccine ID: " . $rowX ["VACCINEID"] .  //int
+	// ", Vaccine Name: " . $rowX["VACCINENAME"] .    //int
+	// ", Disease Name: " . $rowX["DISEASENAME"]) . '<br>';
+	if($rowX["DISEASENAME"] == "Hepatitis B                   "){
+		array_push($HepBVaccineID, $rowX["VACCINEID"]);
+	} elseif ($rowX["DISEASENAME"] == "Diphtheria                    " || $rowX["DISEASENAME"] == "Tetnus                        "){
+		array_push($ADTdToaVaccineID, $rowX['VACCINEID']);
+	} elseif ($rowX["DISEASENAME"] == "Poliomyelitis                 ") {
+		array_push($IPVVaccineID, $rowX['VACCINEID']);
+	} elseif ($rowX["DISEASENAME"] == "Measels                       " || $rowX["DISEASENAME"] == "Mumps                         " || $rowX["DISEASENAME"] == "Rubella                                 ") {
+		array_push($MMRVaccineID, $rowX["VACCINEID"]);
+	} elseif ($rowX["DISEASENAME"] == "Varicella-Zoster              ") {
+		array_push($VZVVaccineID, $rowX["VACCINEID"]);
+	} elseif ($rowX["DISEASENAME"] == "HPV                           ") {
+		array_push($HPVVaccineID, $rowX["VACCINEID"]);
+	} elseif ($rowX["DISEASENAME"] == "Tuberculosis                  ") {
+		array_push($BCGVaccineID, $rowX["VACCINEID"]);
+	} elseif ($rowX["DISEASENAME"] == "Meningococcus ACWY            ") {
+		array_push($MenACWYVaccineID, $rowX['VACCINEID']);
+	}
+}
+
+echo "Hep B: ";
+print_r($HepBVaccineID);
+
+echo "<br> ADT/dTpa: ";
+
+print_r($ADTdToaVaccineID);
+
+echo "<br> IPV: ";
+
+print_r($IPVVaccineID);
+
+echo "<br> MMR: ";
+
+print_r($MMRVaccineID);
+
+echo "<br> VZV: ";
+
+print_r($VZVVaccineID);
+
+echo "<br> HPV: ";
+
+print_r($HPVVaccineID);
+
+echo "<br> BCG: ";
+
+print_r($BCGVaccineID);
+
+echo "<br> MenACWY: ";
+
+print_r($MenACWYVaccineID);
 
 ?>
 
@@ -88,7 +233,8 @@
 </div>
 
 <!--patient info section-->
-<div class="container">
+<?php
+	echo('<div class="container">
   <div class="table" id="patientInfo">
     <h2>Patient Details</h2>
     <div class=".col-md-6">
@@ -108,8 +254,9 @@
         <input id="PtSex"></input>
     </div>
   </div>
-</div>
-
+</div')
+?>
+	
 
 <!--Dosage section-->
 <div class="container">
@@ -250,7 +397,7 @@
   	</tr>
   	<!--table notes row 1-->
   	<tr>
-  		<td colspan="6" id="notes1">#  HPV can be ordered from QHIP for males and females, if year 8 school dose has been missed.  * At least 1 dose Varicella if child aged <14 years however if child is ≥14 years at first dose, give second dose, 4 weeks after 1st dose  -    as per Australian Standard Vaccination Schedule- 10th Edition</td>
+  		<td colspan="6" id="notes1">#  HPV can be ordered from QHIP for males and females, if year 8 school dose has been missed.  * At least 1 dose Varicella if child aged < 14 years however if child is ≥ 14 years at first dose, give second dose, 4 weeks after 1st dose  -    as per Australian Standard Vaccination Schedule- 10th Edition</td>
   	</tr>
   	<tr>
   		<td colspan="6" id="notes2">Record on VIVAS as Refugee Catch-up</td>

@@ -22,10 +22,10 @@ h3{
 }
 
 label{
-  font-size: 16px;
+  font-size: 14px;
   color: #808080;
+  font-weight: 400;
 }
-
 
 /*layout*/
 #header{
@@ -56,4 +56,18 @@ label{
 .modal-footer button{
   padding:5px 20px 5px 20px;
   text-align: center;
+}
+
+/*input fields*/
+input{
+  background: #f5f5f5;
+  border: 1px solid #dadada;
+  border-radius: 2px;
+  padding: 5px;
+  margin: 5px;
+}
+
+/*images*/
+#header img{
+  max-width: 150px;
 }

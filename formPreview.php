@@ -69,7 +69,8 @@
 
 <!--header for form -->
 <div class="container">
-  <div class="table"id="header">
+  <div class="table" id="header">
+    <img src="assets/logos/IPC.png" class="img-fluid" alt="Inala Primary Care Logo">
   	<p id="companyName">Inala Primary Care</p>
   	<p id="companyAddress">64 Wirraway Pde INALA 4064</p>
   	<p id="companyPhone">07 3275 5444</p>
@@ -87,7 +88,7 @@
 <!--patient info section-->
 <div class="container">
   <div class="table" id="patientInfo">
-    <h3>Patient Details</h3>
+    <h2>Patient Details</h2>
     <div class=".col-md-6">
         <label>Name:</label>
         <input id="PtFullName"></input>
@@ -112,7 +113,7 @@
 <div class="container">
   <div class="table">
     <table class="table" id="dosageTable">
-      <h3>Dosage Record</h3>
+      <h2>Dosage Record</h2>
       <tr>
         <th>Dose</th>
         <th>1</th>
@@ -188,7 +189,7 @@
 <!--timeline table-->
 <div class="container">
   <table class="table" id="timelineTable">
-    <h3>Vaccination Schedule</h3>
+    <h2>Vaccination Schedule</h2>
   	<tr>
   		<th>Time Due</th>
   		<th>Date</th>

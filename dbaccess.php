@@ -3,13 +3,11 @@
 <body>
 
 <?php
-$title = "SQL Server DB access";
-echo  $title."<br>";
 
-$serverName = "DESKTOP-38GF4IQ\BPSINSTANCE";
+$serverName = "DANIEL-PC\BPSINSTANCE";
 echo  $serverName."<br/><br/>";
 
-$connectionInfo = array("Database"=>"BPSSamples","UID"=>"bpsrawdata","PWD"=>"password");
+$connectionInfo = array("Database"=>"BPSSamples","UID"=>"bpsrawdata","PWD"=>"samples");
 echo "Connection String: DATABASE=".$connectionInfo["Database"].";UID=".$connectionInfo["UID"].";PWD=".$connectionInfo["PWD"]."<br/>";
 
 $conn = sqlsrv_connect($serverName,$connectionInfo);
